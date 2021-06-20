@@ -1,7 +1,7 @@
 /**
  * Dynamic vector data structure header.
  * Author: Jonathan Santos Castro.
- * GitHub: https://github.com/MaeseJohn
+ * GitHub: https://github.com/MaeseJohn.
 */
 
 #ifndef _TPORO_H_

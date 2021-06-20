@@ -1,7 +1,7 @@
 /**
  * Dynamic vector data structure header.
  * Author: Jonathan Santos Castro.
- * GitHub: https://github.com/MaeseJohn
+ * GitHub: https://github.com/MaeseJohn.
 */
 
 #ifndef _VECTOR_H_
@@ -34,10 +34,10 @@ class vector
 
 	private:
 		// ============= ATTRIBUTES =============
-		// Number of items inserted in the vector
+		// Number of items inserted in the vector.
 		size_t size_;
 
-		// Vector data
+		// Vector data.
 		T *data_;
 
 		// ============= AUXILIAR METHODS =============

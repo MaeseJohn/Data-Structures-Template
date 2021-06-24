@@ -84,7 +84,7 @@ class vector
 
 
 		// ============= MODIFIERS =============
-		// Insert an item of type T at the end of the vector.
+		// Inserts an item of type T at the end of the vector.
 		void push_back(const T &);
 
 		// Remove the last item of the vector.

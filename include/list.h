@@ -16,13 +16,13 @@ class list_node
     private:
         // ============= ATTRIBUTES =============
         // Node item.
-        T item;
+        T item_;
 
         // Previus node.
-        list_node *previus;
+        list_node *previus_;
 
         // Next node.
-        list_node *next;
+        list_node *next_;
 
     public:
         // ============= CONSTRUCTORS =============
@@ -30,7 +30,7 @@ class list_node
         list_node<T>();
 
         // Copy constructor.
-        list_node<T>(const listnode<T> &);
+        list_node<T>(const list_node<T> &);
 
         // Destructor.
         ~list_node<T>();
@@ -39,95 +39,103 @@ class list_node
         // Assignment operator overload.
         list_node<T> & operator=(const list_node<T> &);
 
-        friend class TListaPosicion;
-        friend class TListaPoro;
+        friend class list;
 };
 
-class list_position
+template<typename T>
+class list
 {
 
     private:
         // ============= ATTRIBUTES =============
-        // Para implementar la POSICIÓN a NODO de la LISTA de TPoro
-        TListaNodo *pos;
+        // First item.
+        list_node<T> *first_;
+
+        // Last item.
+        list_node<T> *last_;
+
+        // ============= AUXILIAR METHODS =============
+		// Copy method used in operator= and copy constructor.
+        list<T>& copy(const list &);
 
     public:
-        // Constructor por defecto
-        TListaPosicion();
-        // Constructor de copia
-        TListaPosicion(const TListaPosicion &);
-        // Destructor
-        ~TListaPosicion();
-        // Sobrecarga del operador asignación
-        TListaPosicion & operator=(const TListaPosicion &);
+        // ============= CONSTRUCTORS =============
+        // Default constructor.
+        list<T>();
 
-        //METODOS
-        // Sobrecarga del operador igualdad
-        bool operator==(const TListaPosicion &);
-        // Devuelve la posicion anterior
-        TListaPosicion Anterior()const;
-        // Devuelde la posicion siguiente
-        TListaPosicion Siguiente()const;
-        // Devuelve TRUE si la posicion no apunta a una lista, FALSE en caso contrario
-        bool EsVacia()const;
-        
-        friend class TListaPoro;
-        friend class TListaNodo;
+        // Copy constructor.
+        list<T>(const list<T> &);
+
+        // Destructor.
+        ~list<T>();
+
+        // ============= OPERATOR OVERLOADS =============
+        // Assignment operator overload.
+        list<T> & operator=(const list<T> &);
+
+        // Equality operator overload.
+        bool operator==(const list<T> &);
+
+        // Inequality operator overload.
+		bool operator!=(const list<T> &) const;
+
+		// L Access[] operator overload.
+		T & operator[](const size_t &);
+
+		// R Access[] operator overload.
+		T operator[](const size_t &) const;
 
 
-};
+        // ============= GETTERS =============
+        // Returns a reference to the first item of the list.
+        inline T & first() const;
 
-class TListaPoro{
+        // Returns a reference to the last item of the list.
+        inline T & last() const;
 
-    private:
-        // Primer elemento de la lista
-        TListaNodo *primero;
-        // Ultimo elmento de la lista
-        TListaNodo *segundo;
-        TListaPoro& igualar(const TListaPoro &);
-
-    public:
-        // Constructor por defecto 
-        TListaPoro();
-        // Contructor de copia
-        TListaPoro(const TListaPoro &);
-        // Destructor
-        ~TListaPoro();
-        // Sobrecarga del operador asignación
-        TListaPoro & operator=(const TListaPoro &);
-
-        //METODOS
-
-        // Sobrecarga del operador igualdad
-        bool operator==(const TListaPoro &);
-        // Sobrecarga del operador suma
-        TListaPoro operator+(const TListaPoro &);
-        // Sobrecarga del operador resta
-        TListaPoro operator-(const TListaPoro &);
         // Devuelve true si la lista está vacia, false en caso contrario
-        bool EsVacia()const;
-        // Inserta el elmento en la lista
-        bool Insertar(const TPoro &);
-        // Busca y borra el elemento
-        bool Borrar(const TPoro &);
-        // Borra el elmento que ocupa la posicion indicada
-        bool Borrar(const TListaPosicion &);
-        // Obtiene el elemento que ocupa la posicion indicada
-        TPoro Obtener(const TListaPosicion &)const;
-        // Devuelve true si el elemento está en la lista, false en caso contrario
-        bool Buscar(const TPoro &)const;
-        // Devuelve la longitud de la lista
-        int Longitud()const;
-        // Devuelve la primera posición de la lista
-        TListaPosicion Primera()const;
-        // Devuelve la última posición de la lista
-        TListaPosicion Ultima()const;
-        // Extraer un rango de nodos de la lista
-        TListaPoro ExtraerRango(int n1, int n2);
+        inline bool empty() const;
+
+        // Return number of items inserted in the list.
+		inline size_t size() const;
+
+
+        // ============= MODIFIERS =============
+        // Inserts an item of type T at the end of the list.
+        void push_back(const T &);
+
+        // Inserts an item of type T at the front of the list.
+        void push_front(const T &);
+
+        /** Inserts an item of type T at the position given by size_T.
+         * If the given position is grater than the list size,
+         * the item will be inserted at the end.
+         * 
+         * If the given position is less than 0, the item will be 
+         * inserted at the beginning.
+         */
+        void insert(const T &, const size_t &);
+
+        // Remove the first item from the list.
+        void pop_front();
+
+        // Remove the last item from the list.
+        void pop_back();
+
+        // Remove the item in the position size_t from the list.
+        void erase(const size_t &);
+
+        // Remove the given item of type T from the list.
+        void erase(const T &);
+
+        // Remove all the items from the list.
+        inline void clear();
 
         //FUNCIONES AMIGAS
         //Sobrecarga del operador salida
-        friend std::ostream & operator<<(std::ostream &, const TListaPoro &);
+        friend std::ostream & operator<<(std::ostream &, const list<T> &);
 
 };
+
+#include "../lib/list.cpp"
 #endif

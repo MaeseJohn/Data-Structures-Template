@@ -123,8 +123,6 @@ bool list<T>::operator==(const list<T> &list)
 /////////////
 /////////////
 /////////////
-// Modificar esta función una vez la funcion size y []
-// estén echas
 
     TListaPosicion auxt;
     TListaPosicion auxp;
